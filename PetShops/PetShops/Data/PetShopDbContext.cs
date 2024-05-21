@@ -43,7 +43,19 @@ namespace PetShops.Data
                 .WithMany()
                 .HasForeignKey(od => od.ProductId)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ProductPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Order>()
+            .Property(o => o.OrderTotal)
+            .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<OrderDetail>()
+                .Property(od => od.Price)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }

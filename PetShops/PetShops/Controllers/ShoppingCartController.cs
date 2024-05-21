@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PetShops.Data;
 using PetShops.Interfaces;
 using PetShops.Models;
+using PetShops.Services;
+using System.Security.Cryptography;
 
 namespace PetShops.Controllers
 {
@@ -9,81 +13,52 @@ namespace PetShops.Controllers
     public class ShoppingCartController : ControllerBase
     {
         private readonly IShoppingCartRepository _shoppingCartRepository;
-
-        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository)
+        private readonly IProductRepository _productRepository;
+        private readonly PetShopDbContext _context;
+        public ShoppingCartController(IShoppingCartRepository shoppingCartRepository,IProductRepository productRepository)
         {
             _shoppingCartRepository = shoppingCartRepository;
-        }
-
-        [HttpPost]
-        public IActionResult AddToCart(Product product)
-        {
-            try
-            {
-                _shoppingCartRepository.AddToCart(product);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult RemoveFromCart(int id)
-        {
-            try
-            {
-                var product = new Product { ProductId = id }; 
-                var removedQty = _shoppingCartRepository.RemoveFromCart(product);
-                return Ok(removedQty);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            _productRepository = productRepository;
         }
 
         [HttpGet]
         public IActionResult GetAllShoppingCartItems()
         {
-            try
-            {
-                var shoppingCartItems = _shoppingCartRepository.GetAllShoppingCartItems();
-                return Ok(shoppingCartItems);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var items = _shoppingCartRepository.GetAllShoppingCartItems();
+            return Ok(items);
         }
 
-        [HttpGet("total")]
+        [HttpGet]
         public IActionResult GetShoppingCartTotal()
         {
-            try
-            {
-                var total = _shoppingCartRepository.GetShoppingCartTotal();
-                return Ok(total);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var total = _shoppingCartRepository.GetShoppingCartTotal();
+            return Ok(total);
         }
 
-        [HttpDelete("clear")]
-        public IActionResult ClearCart()
+        [HttpPost("{pId}")]
+        public async Task<IActionResult> AddToShoppingCart(int pId)
         {
-            try
+            var product = await _productRepository.GetProductById(pId);
+            if (product == null)
             {
-                _shoppingCartRepository.ClearCart();
-                return Ok();
+                return NotFound($"Product with id {pId} not found.");
             }
-            catch (Exception ex)
+
+            _shoppingCartRepository.AddToCart(product);
+            return Ok("Product added to cart.");
+        }
+
+        [HttpDelete("{pId}")]
+        public async Task<IActionResult> RemoveFromShoppingCart(int pId)
+        {
+            var product = await _productRepository.GetProductById(pId);
+            if (product == null)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return NotFound($"Product with id {pId} not found.");
             }
+
+            var quantity = _shoppingCartRepository.RemoveFromCart(product);
+            return Ok(quantity);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace PetShops.Controllers
     {
         private readonly PetShopDbContext _context;
         private readonly IProductRepository _productRepository;
+
         public ProductController(PetShopDbContext context, IProductRepository productRepository)
         {
             _context = context;
@@ -65,7 +66,6 @@ namespace PetShops.Controllers
 
             return StatusCode(StatusCodes.Status200OK);
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)

@@ -13,6 +13,15 @@ namespace PetShopMVC.Controllers
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7182/api/");
         }
+        private void SetAuthorizationHeader()
+        {
+            var token = HttpContext.Session.GetString("JWToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {

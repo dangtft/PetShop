@@ -4,11 +4,13 @@ using PetShops.DTOs;
 using PetShops.Interfaces;
 using PetShops.Models;
 using PetShops.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PetShops.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class BlogController : ControllerBase
     {
         private readonly PetShopDbContext _context;
@@ -30,6 +32,7 @@ namespace PetShops.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles ="Read")]
         public async Task<IActionResult> GetBlog(int id)
         {
             var blog = await _blogRepository.GetBlogById(id);

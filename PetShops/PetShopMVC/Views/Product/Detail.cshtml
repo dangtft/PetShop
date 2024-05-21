@@ -30,4 +30,8 @@
     <label>Pet Type:</label>
     <span>@Model.PetTypeId</span>
 </div>
+<div>
+    
+    <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@Model.ProductId">Add To Cart</a>
+</div>
 

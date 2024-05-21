@@ -17,7 +17,7 @@ namespace PetShops.Services
         public static ShoppingCartRepository GetCart(IServiceProvider services)
         {
             ISession? session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext?.Session;
-            PetShopDbContext context = services.GetService<PetShopDbContext>() ?? throw new Exception("Error initializing SunFlowerDbContext");
+            PetShopDbContext context = services.GetService<PetShopDbContext>() ?? throw new Exception("Error initializing PetShopDbContext");
             string cartId = session?.GetString("CartId") ?? Guid.NewGuid().ToString(); session?.SetString("CartId", cartId);
             return new ShoppingCartRepository(context) { ShoppingCartId = cartId };
         }

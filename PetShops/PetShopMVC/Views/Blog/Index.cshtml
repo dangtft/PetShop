@@ -1,0 +1,42 @@
+﻿@model List<PetShopMVC.DTOs.BlogDTO>
+
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<h1>Blog Index</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blog in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@blog.ImgUrl" alt="@blog.Title" style="width:100px;height:auto;" />
+                </td>
+                <td>@blog.Title</td>
+                <td>@blog.Author</td>
+                <td>@blog.CreatedAt.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Blog", new { id = blog.BlogId })">View</a>
+                        <a class="btn btn-secondary" href="@Url.Action("Edit", "Blog", new { id = blog.BlogId })">Edit</a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", "Blog", new { id = blog.BlogId })">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>    
+</table>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-success" href="@Url.Action("Create", "Blog")">Create New Blog</a>
+}

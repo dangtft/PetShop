@@ -12,6 +12,8 @@ namespace PetShops.Models
         public string? ProductImage { get; set; }
         public decimal? ProductPrice { get; set; }
         public bool? IsSaling { get; set; }
+        public int? Rating { get; set; }
+        public int? Quantity { get; set; }
 
         [ForeignKey("Category")]
         public int? CategoryId { get; set; }
