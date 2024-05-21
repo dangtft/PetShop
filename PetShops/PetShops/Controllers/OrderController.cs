@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetShops.Interfaces;
 using PetShops.Models;
 
@@ -6,6 +7,7 @@ namespace PetShops.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepository _orderRepository;
@@ -60,7 +62,7 @@ namespace PetShops.Controllers
             }
         }
 
-        [HttpGet("{userId}/completed")]
+        [HttpGet("{userId}")]
         public IActionResult GetCompletedOrders(string userId)
         {
             try

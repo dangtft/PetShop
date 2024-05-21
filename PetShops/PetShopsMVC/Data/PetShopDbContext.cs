@@ -7,23 +7,23 @@ namespace PetShopsMVC.Data
     {
         public PetShopDbContext(DbContextOptions<PetShopDbContext> options) : base(options) { }
         public DbSet<Products> Products { get; set; }
-        public DbSet<OrderDTO> Orders { get; set; }
-        public DbSet<OrderDetailDTO> OrderDetails { get; set; }
+        public DbSet<Orders> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Carts> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<OrderDetailDTO>().HasKey(o => o.OrderDetailId);
+            modelBuilder.Entity<OrderDetails>().HasKey(o => o.OrderDetailId);
 
             modelBuilder.Entity<ProductDTO>()
                 .Property(p => p.ProductPrice)
                 .HasPrecision(18, 2);
 
-            modelBuilder.Entity<OrderDTO>()
+            modelBuilder.Entity<Orders>()
             .Property(o => o.OrderTotal)
             .HasColumnType("decimal(18,2)");
 
-            modelBuilder.Entity<OrderDetailDTO>()
+            modelBuilder.Entity<OrderDetails>()
                 .Property(od => od.Price)
                 .HasColumnType("decimal(18,2)");
             base.OnModelCreating(modelBuilder);

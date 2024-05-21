@@ -60,5 +60,12 @@ namespace PetShops.Controllers
             var quantity = _shoppingCartRepository.RemoveFromCart(product);
             return Ok(quantity);
         }
+
+        [HttpDelete]
+        public IActionResult ClearCart()
+        {
+            _shoppingCartRepository.ClearCart();
+            return Ok("Shopping cart cleared.");
+        }
     }
 }

@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductRepository,ProductRepository>();
 builder.Services.AddScoped<IBlogRepository,BlogRepository>();
 builder.Services.AddScoped<IOrderRepository,OrderRepository>();
-builder.Services.AddScoped<IShoppingCartRepository,ShoppingCartRepository>();
+builder.Services.AddScoped<IShoppingCartRepository,ShoppingCartRepository>(ShoppingCartRepository.GetCart);
 builder.Services.AddScoped<ITokenRepository,TokenRepository>();
 
 builder.Services.AddAuthentication(options =>

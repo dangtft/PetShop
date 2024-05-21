@@ -4,8 +4,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PetShopsMVC.DTOs;
 using Newtonsoft.Json;
+using PetShopsMVC.Models;
 
 namespace PetShopsMVC.Controllers
 {
@@ -18,74 +18,74 @@ namespace PetShopsMVC.Controllers
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7182/api/");
         }
+        private void SetAuthorizationHeader()
+        {
+            var token = HttpContext.Session.GetString("JWToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
+        }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(OrderDTO order)
+        public async Task<IActionResult> Checkout(Orders order)
         {
+            SetAuthorizationHeader();
             try
             {
-                var json = Newtonsoft.Json.JsonConvert.SerializeObject(order);
-                var data = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync("Order/PlaceOrder", data);
+                var jsonOrder = JsonConvert.SerializeObject(order);
+                var content = new StringContent(jsonOrder, Encoding.UTF8, "application/json");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return View("Error");
-                }
+                var response = await _httpClient.PostAsync("Order/PlaceOrder", content);
+                response.EnsureSuccessStatusCode();
+
+                var clearCartResponse = await _httpClient.DeleteAsync("ShoppingCart/ClearCart");
+                clearCartResponse.EnsureSuccessStatusCode();
+
+                HttpContext.Session.SetInt32("CartCount", 0);
+
+                return RedirectToAction("CheckoutComplete");
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = $"Error placing order: {ex.Message}";
+                ViewBag.ErrorMessage = $"Lỗi khi đặt hàng: {ex.Message}";
                 return View("Error");
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllOrders()
+        public IActionResult CheckoutComplete()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> AllOrder()
         {
             try
             {
-                var response = await _httpClient.GetAsync("Order/GetAllOrders");
+                var response = await _httpClient.GetAsync("GetAllOrders");
                 response.EnsureSuccessStatusCode();
-                var orders = await response.Content.ReadAsAsync<IEnumerable<OrderDTO>>();
-                return View(orders);
+                var allOrders = await response.Content.ReadAsAsync<IEnumerable<Orders>>();
+                return View(allOrders);
             }
             catch (Exception ex)
             {
-                ViewBag.ErrorMessage = $"Error getting orders: {ex.Message}";
+                ViewBag.ErrorMessage = $"Error getting all orders: {ex.Message}";
                 return View("Error");
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetOrderById(int orderId)
+        public async Task<IActionResult> CompletedOrders()
         {
             try
             {
-                var response = await _httpClient.GetAsync($"Order/GetOrderById/{orderId}");
+                var userId = User.Identity.Name;
+                var response = await _httpClient.GetAsync($"GetCompletedOrders/{userId}");
                 response.EnsureSuccessStatusCode();
-                var order = await response.Content.ReadAsAsync<OrderDTO>();
-                return View(order);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.ErrorMessage = $"Error getting order: {ex.Message}";
-                return View("Error");
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetCompletedOrders(string userId)
-        {
-            try
-            {
-                var response = await _httpClient.GetAsync($"Order/GetCompletedOrders/{userId}");
-                response.EnsureSuccessStatusCode();
-                var completedOrders = await response.Content.ReadAsAsync<IEnumerable<OrderDTO>>();
+                var completedOrders = await response.Content.ReadAsAsync<IEnumerable<Orders>>();
                 return View(completedOrders);
             }
             catch (Exception ex)
