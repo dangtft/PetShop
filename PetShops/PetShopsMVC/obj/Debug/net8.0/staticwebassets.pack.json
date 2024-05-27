@@ -5,6 +5,22 @@
       "PackagePath": "staticwebassets\\PetShopsMVC.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Admin\\Desktop\\PetShops\\PetShops\\PetShopsMVC\\wwwroot\\assets\\css\\Blog.css",
+      "PackagePath": "staticwebassets\\assets\\css\\Blog.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\PetShops\\PetShops\\PetShopsMVC\\wwwroot\\assets\\css\\Checkout.css",
+      "PackagePath": "staticwebassets\\assets\\css\\Checkout.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\PetShops\\PetShops\\PetShopsMVC\\wwwroot\\assets\\css\\Single-post.css",
+      "PackagePath": "staticwebassets\\assets\\css\\Single-post.css"
+    },
+    {
+      "Id": "C:\\Users\\Admin\\Desktop\\PetShops\\PetShops\\PetShopsMVC\\wwwroot\\assets\\css\\Single-product.css",
+      "PackagePath": "staticwebassets\\assets\\css\\Single-product.css"
+    },
+    {
       "Id": "C:\\Users\\Admin\\Desktop\\PetShops\\PetShops\\PetShopsMVC\\wwwroot\\assets\\css\\ajax-loader.gif",
       "PackagePath": "staticwebassets\\assets\\css\\ajax-loader.gif"
     },

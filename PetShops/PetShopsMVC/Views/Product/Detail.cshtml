@@ -1,28 +1,89 @@
 ﻿@model PetShopsMVC.Models.Products
+<div class="inner-wrapper">
+    <!-- Section-1 -->
+    <div class="product-details-with-image">
+        <div class="container">
+            <div class="product-details-with-image-inner">
+                <div class="product-left-section">
+                    <div class="product-images-slider slider-for">
+                        <div class="product-image item-1">
+                            <img src="@Model.ProductImage" alt="">
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="product-right-content">
+                    <div class="product-name">
+                        <h4>@Model.ProductName</h4>
+                    </div>
+                    <div class="product-price-range">
+                        <h4>@Model.ProductPrice</h4>
+                    </div>
+                    <div class="product-excerpt">
+                        <p><span>@Model.ProductDescription</span></p>
+                    </div>
+                    <div class="product-stock-left">
+                        <p>Only <span>30 item(s)</span> left in stock!</p>
+                    </div>
+                    <div class="product-stock-left">
+                        <span class="rating secondary-font">
+                            @for (var i = 0; i < Model.Rating; i++)
+                            {
+                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                            }
+                            @Model.Rating
+                        </span>
+                    </div>
+                    <div class="buy-product">
+                        <div class="add-product">
+                            <div class="cart-button-container">
+                                <button class="cart-qty-minus secondary-button" type="button" value="-">-</button>
+                                <input type="text" name="qty" class="input-text qty" maxlength="12" value="0" readonly>
+                                <button class="cart-qty-plus  secondary-button" type="button" value="+">+</button>
+                            </div>
+                        </div>
+                        <div class="product-cart-button secondary-button">
+                            <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@Model.ProductId">
+                                Add To Cart
+                            </a>
+                        </div>
+                       
+                    </div>
+                    <div class="buy-it-now-button secondary-button">
+                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@Model.ProductId">
+                            Buy It Now
+                        </a>
+                    </div>
+                    <div class="product-details">
+                        <div class="product-sku">
+                            <p><samp>SKU:</samp> U1234</p>
+                        </div>
+                        <div class="product-categories">
+                            <p>
+                                <samp>Categories: </samp>
+                                Basil Pesto Salad Dressing,Italian Chopped Salad,Layered Panzanella
+                            </p>
+                        </div>
+                        <div class="product-tags">
+                            <p><samp>Tag: </samp>Mozzarella,San Marzano tomato sauce,Olive Oil</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Section-2 -->
+    <div class="product-description-reviews">
+        <div class="container">
+            <ul id="product-tabs-nav">
+                <li><a href="#description">Description</a></li>
+            </ul>
+            <div id="product-tabs-cont">
+                <div class="product-tab-content product-description" id="description">
+                    <p></p><p><span>@Model.ProductDescription</span></p><p></p>
+                </div>
 
-<h1>Detail Product</h1>
-
-<div>
-    <label>Name:</label>
-    <span>@Model.ProductName</span>
-</div>
-<div>
-    <label>Description:</label>
-    <span>@Model.ProductDescription</span>
-</div>
-<div>
-    <label>Image:</label>
-    <img src="@Model.ProductImage" alt="@Model.ProductName" />
-</div>
-<div>
-    <label>Price:</label>
-    <span>@Model.ProductPrice</span>
-</div>
-<div>
-    <label>Saling:</label>
-    <span>@(Model.IsSaling )</span>
-</div>
-
-<div>
-    <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@Model.ProductId">Add Shopping Cart </a>
+            </div>
+        </div>
+    </div>
 </div>

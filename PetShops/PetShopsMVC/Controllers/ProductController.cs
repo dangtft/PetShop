@@ -1,6 +1,8 @@
 ﻿using PetShopsMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using PetShopsMVC.ViewModel;
+using System.Text;
 
 namespace PetShopsMVC.Controllers
 {
@@ -26,14 +28,44 @@ namespace PetShopsMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            SetAuthorizationHeader();
             List<Products> products = new List<Products>();
-            HttpResponseMessage response = await _httpClient.GetAsync("Product/GetAllProduct");
+            HttpResponseMessage response = await _httpClient.GetAsync($"Product/GetAllProduct");
+            List<Blogs> blogs = new List<Blogs>();
+            HttpResponseMessage response2 = await _httpClient.GetAsync($"Blog/GetAllBlog");
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode && response2.IsSuccessStatusCode)
+            {
+                string data = await response2.Content.ReadAsStringAsync();
+                blogs = JsonConvert.DeserializeObject<List<Blogs>>(data);
+                string data2 = await response.Content.ReadAsStringAsync();
+                products = JsonConvert.DeserializeObject<List<Products>>(data2);
+            }
+
+          
+            var viewModel = new HomeVM
+            {
+               Products = products ?? new List<Products>(),
+               Blogs = blogs ?? new List<Blogs>()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Shop()
+        {
+            List<Products> products = new List<Products>();
+            HttpResponseMessage response = await _httpClient.GetAsync($"Product/GetAllProduct");
+           
+
+            if (response.IsSuccessStatusCode )
             {
                 string data = await response.Content.ReadAsStringAsync();
+              
                 products = JsonConvert.DeserializeObject<List<Products>>(data);
             }
+
             return View(products);
         }
 
@@ -68,5 +100,32 @@ namespace PetShopsMVC.Controllers
                 return NotFound();
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> EmailSubscribe(string email)
+        {
+            try
+            {
+                var emailSubscription = new { Email = email };
+                var content = new StringContent(JsonConvert.SerializeObject(emailSubscription), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("Product/EmailSubscribe", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    ViewBag.SuccessMessage = "Cảm ơn bạn đã đăng ký!";
+                    return RedirectToAction(nameof(Index)); 
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Không thể thêm đăng ký email.");
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Đã xảy ra lỗi trong quá trình xử lý yêu cầu của bạn.");
+            }
+        }
+
+
+
     }
 }

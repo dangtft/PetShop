@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="~/assets/font/Linearicons-Free-v1.0.0/Web Font/style.css">
+    <link rel="stylesheet" href="~/assets/css/Blog.css" />
+    <link rel="stylesheet" href="~/assets/css/Checkout.css" />
+    <link rel="stylesheet" href="~/assets/css/Single-post.css" />
+    <link rel="stylesheet" href="~/assets/css/Single-product.css" />
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="~/assets/font/fontawesome-free-6.5.1-web/fontawesome-free-6.5.1-web/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -95,51 +99,6 @@
         </defs>
     </svg>
 
-
-
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
-        <div class="offcanvas-header justify-content-center">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="order-md-last">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Your cart</span>
-                    <span class="badge bg-primary rounded-circle pt-2">3</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Grey Hoodie</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$12</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Dog Food</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$8</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Soft Toy</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span class="fw-bold">Total (USD)</span>
-                        <strong>$20</strong>
-                    </li>
-                </ul>
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-            </div>
-        </div>
-    </div>
-
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch"
          aria-labelledby="Search">
         <div class="offcanvas-header justify-content-center">
@@ -192,7 +151,7 @@
                     </div>
                     <div class="support-box text-end d-none d-xl-block">
                         <span class="fs-6 secondary-font text-muted">Email</span>
-                        <h5 class="mb-0">waggy@gmail.com</h5>
+                        <h5 class="mb-0">petshop@gmail.com</h5>
                     </div>
 
 
@@ -215,15 +174,9 @@
                                 <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
                             </a>
                         </li>
+                       
                         <li>
-                            <a asp-controller="Product" asp-action="Index" class="mx-3">
-                                <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a asp-controller="Product" asp-action="Index" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                               aria-controls="offcanvasCart">
+                            <a asp-controller="ShoppingCart" asp-action="Index">
                                 <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
                                 <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
 
@@ -259,10 +212,10 @@
 
                         <ul class="navbar-nav menu-list list-unstyled d-flex gap-md-3 mb-0">
                             <li class="nav-item">
-                                <a asp-controller="Home" asp-action="Index" class="nav-link active">Home</a>
+                                <a asp-controller="Product" asp-action="Index" class="nav-link active">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Shop</a>
+                                <a asp-controller="Product" asp-action="Shop" class="nav-link">Shop</a>
                             </li>
                             <li class="nav-item">
                                 <a asp-controller="Blog" asp-action="Index" class="nav-link">Blog</a>
@@ -273,42 +226,34 @@
                             <li class="nav-item">
                                 <a asp-controller="AboutUs" asp-action="Index" class="nav-link">About Us</a>
                             </li>
-                            <li class="nav-item">
-                                <a asp-controller="Other" asp-action="Index" class="nav-link">Others</a>
-                            </li>
+                           
                         </ul>
 
 
                         <div class="d-none d-lg-flex align-items-end">
                             <ul class="d-flex justify-content-end list-unstyled m-0">
-                                <li>
-                                    <a class="mx-3">
-                                        <iconify-icon icon="healthicons:person" class="fs-4">
-                                            <ul>
-                                                @if (Context.Session.GetString("Username") != null)
-                                                {
-                                                    <li class="nav-item">
-                                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout (@Context.Session.GetString("Username"))</a>
-                                                    </li>
-                                                }
-                                                else
-                                                {
-                                                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                                                    <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-                                                }
-                                            </ul>
-                                        </iconify-icon>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" role="button" id="account" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <iconify-icon icon="healthicons:person" class="fs-4"></iconify-icon>
                                     </a>
+                                    <ul class="dropdown-menu" aria-labelledby="account">
+                                        @if (Context.Session.GetString("Username") != null)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Logout">Logout (@Context.Session.GetString("Username"))</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                                        }
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a asp-controller="Product" asp-action="Index" class="mx-3">
-                                        <iconify-icon icon="mdi:heart" class="fs-4"></iconify-icon>
-                                    </a>
-                                </li>
+                               
 
                                 <li class="">
-                                    <a asp-controller="Product" asp-action="Index" class="mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
-                                       aria-controls="offcanvasCart">
+                                    <a asp-controller="ShoppingCart" asp-action="Index" class="mx-3">
                                         <iconify-icon icon="mdi:cart" class="fs-4 position-relative"></iconify-icon>
                                         <span class="position-absolute translate-middle badge rounded-circle bg-primary pt-2">
                                             @if (ViewBag.TotalCart != null)
@@ -353,27 +298,27 @@
                         <div class="social-links">
                             <ul class="d-flex list-unstyled gap-2">
                                 <li class="social">
-                                    <a asp-controller="Product" asp-action="Index">
+                                    <a href="https://www.facebook.com" 
                                         <iconify-icon class="social-icon" icon="ri:facebook-fill"></iconify-icon>
                                     </a>
                                 </li>
                                 <li class="social">
-                                    <a asp-controller="Product" asp-action="Index">
+                                    <a href="https://www.twitter.com" 
                                         <iconify-icon class="social-icon" icon="ri:twitter-fill"></iconify-icon>
                                     </a>
                                 </li>
                                 <li class="social">
-                                    <a asp-controller="Product" asp-action="Index">
+                                    <a href="https://www.pinterest.com">
                                         <iconify-icon class="social-icon" icon="ri:pinterest-fill"></iconify-icon>
                                     </a>
                                 </li>
                                 <li class="social">
-                                    <a asp-controller="Product" asp-action="Index">
+                                    <a href="https://www.instagram.com">
                                         <iconify-icon class="social-icon" icon="ri:instagram-fill"></iconify-icon>
                                     </a>
                                 </li>
                                 <li class="social">
-                                    <a asp-controller="Product" asp-action="Index">
+                                    <a href="https://www.youtube.com">
                                         <iconify-icon class="social-icon" icon="ri:youtube-fill"></iconify-icon>
                                     </a>
                                 </li>
@@ -390,52 +335,41 @@
                                 <a asp-controller="Product" asp-action="Index" class="nav-link">Home</a>
                             </li>
                             <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">About us</a>
+                                <a asp-controller="Product" asp-action="Shop" class="nav-link">Shop</a>
                             </li>
                             <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Offer </a>
+                                <a asp-controller="Blog" asp-action="Index" class="nav-link">Blog</a>
                             </li>
                             <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Services</a>
+                                <a asp-controller="AboutUs" asp-action="Index" class="nav-link">About us</a>
                             </li>
                             <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Conatct Us</a>
+                                <a asp-controller="ContactUs" asp-action="Index" class="nav-link">Conatct Us</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h5>Help Center</h5>
-                        <ul class="menu-list list-unstyled">
-                            <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">FAQs</a>
-                            </li>
-                            <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Payment</a>
-                            </li>
-                            <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Returns & Refunds</a>
-                            </li>
-                            <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Checkout</a>
-                            </li>
-                            <li class="menu-item">
-                                <a asp-controller="Product" asp-action="Index" class="nav-link">Delivery Information</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
                 <div class="col-md-3">
                     <div>
                         <h3>Our Newsletter</h3>
                         <p class="blog-paragraph fs-6">Subscribe to our newsletter to get updates about our grand offers.</p>
                         <div class="search-bar border rounded-pill border-dark-subtle px-2">
-                            <form class="text-center d-flex align-items-center" action="" method="">
-                                <input type="text" class="form-control border-0 bg-transparent" placeholder="Enter your email here" />
-                                <iconify-icon class="send-icon" icon="tabler:location-filled"></iconify-icon>
+                            <form method="post" asp-controller="Product" asp-action="EmailSubscribe" class="text-center d-flex align-items-center">
+                                <input type="text" name="email" class="form-control border-0 bg-transparent" placeholder="Enter your email here" />
+                                <button type="submit" style="border:none;color:none;background:none"><iconify-icon class="send-icon" icon="tabler:location-filled"></iconify-icon></button>
                             </form>
                         </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div>
+                        <h3>Map</h3>
+                        <a href="https://www.google.com/maps/place/Tp.+%C4%90%C3%A0+L%E1%BA%A1t,+L%C3%A2m+%C4%90%E1%BB%93ng/data=!4m2!3m1!1s0x317112fef20988b1:0xad5f228b672bf930?sa=X&ved=1t:242&ictx=111">
+                            <img style="width:300px;height:200px" src="https://www.google.com/maps/vt/data=cUur4IOTRfO7s2bURWQ9_3cAuBJQ2dne6aHDaBGcQWV5moqh8Xpj8G1dFcbRpl0RpYpqenmgO92hSxaQh9ItmgOF9lS_iZzg1cnoxvT8WVnJjpJx_6UN0O_l-lMoRA9XqzsX0HDYfT9HmIQkrq5XyTqXwWOIGKV2qLly_EB1lQ9OtgYX-N7lhW2hxfe4S0ifF12QJSi6YkTqB82CK5BraDT9lSQoRYVKHqEO8sMYQwj3smzkpuJ1qzDewM-uel3SzIRD9PkOn9-6NlOrK7o7fzXxlMrYgT8KcVnH" />
+                        </a>
                     </div>
                 </div>
 
@@ -448,7 +382,7 @@
             <hr class="m-0">
             <div class="row mt-3">
                 <div class="col-md-6 copyright">
-                    <p class="secondary-font">© 2023 Waggy. All rights reserved.</p>
+                    <p class="secondary-font">© 2024 PetShop. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                 </div>
@@ -466,6 +400,23 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+
+            dropdownToggle.addEventListener('click', function () {
+                dropdownMenu.classList.toggle('show');
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

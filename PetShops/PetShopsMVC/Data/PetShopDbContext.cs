@@ -10,6 +10,9 @@ namespace PetShopsMVC.Data
         public DbSet<Orders> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Carts> Carts { get; set; }
+        public DbSet<Blogs> Blogs { get; set; }
+        public DbSet<EmailSubscribe> EmailSubscribe { get; set; }
+        public DbSet<Contacts> Contacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

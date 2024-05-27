@@ -1,78 +1,659 @@
-﻿@model IEnumerable<PetShopsMVC.Models.Products>
+﻿@model PetShopsMVC.ViewModel.HomeVM;
+<section id="banner" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="swiper main-swiper">
+            <div class="swiper-wrapper">
 
-@{
-    ViewData["Title"] = "Shop";
-}
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
 
-<h1>Index</h1>
+                        <div class="img-wrapper col-md-5">
+                            <img src="~/assets/images/banner-img.png" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
+                            <h2 class="banner-title display-1 fw-normal">
+                                Best destination for <span class="text-primary">
+                                    your
+                                    pets
+                                </span>
+                            </h2>
+                            <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                shop now
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsSaling)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PetTypeId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductImage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductPrice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsSaling)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PetTypeId)
-                </td>
-                <td>
-                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">Details</a> |
-                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    </div>
+                </div>
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="~/assets/images//banner-img3.png" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
+                            <h2 class="banner-title display-1 fw-normal">
+                                Best destination for <span class="text-primary">
+                                    your
+                                    pets
+                                </span>
+                            </h2>
+                            <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                shop now
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="swiper-slide py-5">
+                    <div class="row banner-content align-items-center">
+                        <div class="img-wrapper col-md-5">
+                            <img src="~/assets/images/banner-img4.png" class="img-fluid">
+                        </div>
+                        <div class="content-wrapper col-md-7 p-5 mb-5">
+                            <div class="secondary-font text-primary text-uppercase mb-4">Save 10 - 20 % off</div>
+                            <h2 class="banner-title display-1 fw-normal">
+                                Best destination for <span class="text-primary">
+                                    your
+                                    pets
+                                </span>
+                            </h2>
+                            <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                                shop now
+                                <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                                    <use xlink:href="#arrow-right"></use>
+                                </svg>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-pagination mb-5"></div>
+
+        </div>
+    </div>
+</section>
+
+<section id="categories">
+    <div class="container my-3 py-5">
+        <div class="row my-5">
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bowl-food"></iconify-icon>
+                    <h5>Foodies</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
+                    <h5>Bird Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
+                    <h5>Dog Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
+                    <h5>Fish Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
+                    <h5>Cat Shop</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="clothing" class="my-5 overflow-hidden">
+    <div class="container pb-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+            <h2 class="display-3 fw-normal">Pet Clothing</h2>
+            <div>
+                <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    shop now
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="products-carousel swiper">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model.Products)
+                {
+                    @if (item.CategoryId == 2)//Clothing
+                    {
+                        <div class="swiper-slide">
+                            <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                                New
+                            </div>
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src=" @Html.DisplayFor(modelItem => item.ProductImage)" class="img-fluid rounded-4" alt="image"></a>
+                                <div class="card-body p-0">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
+                                        <h3 class="card-title pt-4 m-0"> @Html.DisplayFor(modelItem => item.ProductName)</h3>
+                                    </a>
+
+                                    <div class="card-text">
+                                        <span class="rating secondary-font">
+                                            @for(var i =0;i < item.Rating; i++)
+                                            {
+                                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                            }
+                                            @item.Rating
+                                        </span>
+
+                                        <h3 class="secondary-font text-primary"> @Html.DisplayFor(modelItem => item.ProductPrice)</h3>
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                                <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                            </a>
+                                           
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="foodies" class="my-5">
+    <div class="container my-5 py-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center">
+            <h2 class="display-3 fw-normal">Pet Foodies</h2>
+            <div class="mb-4 mb-md-0">
+                <p class="m-0">
+                    <button class="filter-button me-4  active" data-filter="*">ALL</button>
+                    <button class="filter-button me-4 " data-filter=".cat">CAT</button>
+                    <button class="filter-button me-4 " data-filter=".dog">DOG</button>
+                    <button class="filter-button me-4 " data-filter=".bird">BIRD</button>
+                </p>
+            </div>
+            <div>
+                <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    shop now
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="isotope-container row">
+            @foreach (var item in Model.Products)
+            {
+                if (item.PetTypeId == 1)
+                {
+                    <div class="item dog col-md-4 col-lg-3 my-4">
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                    <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <span class="rating secondary-font">
+                                        @for (var i = 0; i < item.Rating; i++)
+                                        {
+                                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                        }
+                                        @item.Rating
+                                    </span>
+
+                                    <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                if (item.PetTypeId == 2)
+                {
+                    <div class="item cat col-md-4 col-lg-3 my-4">
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                    <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <span class="rating secondary-font">
+                                        @for (var i = 0; i < item.Rating; i++)
+                                        {
+                                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                        }
+                                        @item.Rating
+                                    </span>
+
+                                    <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                if (item.PetTypeId == 3)
+                {
+                    <div class="item bird col-md-4 col-lg-3 my-4">
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                    <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <span class="rating secondary-font">
+                                        @for (var i = 0; i < item.Rating; i++)
+                                        {
+                                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                        }
+                                        @item.Rating
+                                    </span>
+
+                                    <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+
+
+    </div>
+</section>
+
+<section id="banner-2" class="my-3" style="background: #F9F3EC;">
+    <div class="container">
+        <div class="row flex-row-reverse banner-content align-items-center">
+            <div class="img-wrapper col-12 col-md-6">
+                <img src="~/assets/images/banner-img2.png" class="img-fluid">
+            </div>
+            <div class="content-wrapper col-12 offset-md-1 col-md-5 p-5">
+                <div class="secondary-font text-primary text-uppercase mb-3 fs-4">Upto 40% off</div>
+                <h2 class="banner-title display-1 fw-normal">
+                    Clearance sale !!!
+                </h2>
+                <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    shop now
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="testimonial">
+    <div class="container my-5 py-5">
+        <div class="row">
+            <div class="offset-md-1 col-md-10">
+                <div class="swiper testimonial-swiper">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="row ">
+                                <div class="col-2">
+                                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                                </div>
+                                <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                                    <p class="testimonial-content fs-2">
+                                        At the core of our practice is the idea that cities are the
+                                        incubators of our
+                                        greatest achievements, and the best hope for a sustainable future.
+                                    </p>
+                                    <p class="text-black">- Joshima Lin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="row ">
+                                <div class="col-2">
+                                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                                </div>
+                                <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                                    <p class="testimonial-content fs-2">
+                                        At the core of our practice is the idea that cities are the
+                                        incubators of our
+                                        greatest achievements, and the best hope for a sustainable future.
+                                    </p>
+                                    <p class="text-black">- Joshima Lin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="row ">
+                                <div class="col-2">
+                                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                                </div>
+                                <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                                    <p class="testimonial-content fs-2">
+                                        At the core of our practice is the idea that cities are the
+                                        incubators of our
+                                        greatest achievements, and the best hope for a sustainable future.
+                                    </p>
+                                    <p class="text-black">- Joshima Lin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section id="bestselling" class="my-5 overflow-hidden">
+    <div class="container py-5 mb-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+            <h2 class="display-3 fw-normal">Best selling products</h2>
+            <div>
+                <a asp-controller="Product" asp-action="Shop" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    shop now
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class=" swiper bestselling-swiper">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model.Products)
+                {
+                    if (item.IsSaling == true)
+                    {
+                        <div class="swiper-slide">
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                                <div class="card-body p-0">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
+                                        <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                    </a>
+
+                                    <div class="card-text">
+                                        <span class="rating secondary-font">
+                                            @for (var i = 0; i < item.Rating; i++)
+                                            {
+                                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                            }
+                                            @item.Rating
+                                        </span>
+
+                                        <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                                <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                            </a>
+                                          
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- / category-carousel -->
+
+
+    </div>
+</section>
+<section id="register" style="background: url('~/assets/images/background-img.png') no-repeat;">
+    <div class="container ">
+        <div class="row my-5 py-5">
+            <div class="offset-md-3 col-md-6 my-5 ">
+                <h2 class="display-3 fw-normal text-center">
+                    Get 20% Off on <span class="text-primary">first Purchase</span>
+                </h2>
+                <form>
+                    <div class="mb-3">
+                        <input asp-for="@Model.Register.Username" type="email" class="form-control form-control-lg" name="email" id="email"
+                               placeholder="Enter Your Email Address">
+                        <span asp-validation-for="@Model.Register.Username" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input asp-for="@Model.Register.Password" type="password" class="form-control form-control-lg" name="email" id="password1"
+                               placeholder="Create Password">
+                        <span asp-validation-for="@Model.Register.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button value="Register" type="submit" class="btn btn-dark btn-lg rounded-1">Register it now</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="latest-blog" class="my-5">
+    <div class="container py-5 my-5">
+        <div class="row mt-5">
+            <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+                <h2 class="display-3 fw-normal">Latest Blog Post</h2>
+                <div>
+                    <a asp-controller="Blog" asp-action="Index" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                        Read all
+                        <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                            <use xlink:href="#arrow-right"></use>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.Blogs)
+            {
+                if (item.IsHot)
+                {
+                    <div class="col-md-4 my-4 my-md-0">
+                        <div class="z-1 position-absolute rounded-3 m-2 px-3 pt-1 bg-light">
+                            <h3 class="secondary-font text-primary m-0">20</h3>
+                            <p class="secondary-font fs-6 m-0">Feb</p>
+
+                        </div>
+                        <div class="card position-relative">
+                            <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId"><img src="@item.ImgUrl" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Blog" asp-action="Index" asp-route-id="@item.BlogId">
+                                    <h3 class="card-title pt-4 pb-3 m-0">@item.Title</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <p class="blog-paragraph fs-6">
+                                        @item.Content
+                                    </p>
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId" class="blog-read">read more</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</section>
+
+<section id="service">
+    <div class="container py-5 my-5">
+        <div class="row g-md-5 pt-4">
+            <div class="col-md-3 my-3">
+                <div class="card">
+                    <div>
+                        <iconify-icon class="service-icon text-primary" icon="la:shopping-cart"></iconify-icon>
+                    </div>
+                    <h3 class="card-title py-2 m-0">Free Delivery</h3>
+                    <div class="card-text">
+                        <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 my-3">
+                <div class="card">
+                    <div>
+                        <iconify-icon class="service-icon text-primary" icon="la:user-check"></iconify-icon>
+                    </div>
+                    <h3 class="card-title py-2 m-0">100% secure payment</h3>
+                    <div class="card-text">
+                        <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 my-3">
+                <div class="card">
+                    <div>
+                        <iconify-icon class="service-icon text-primary" icon="la:tag"></iconify-icon>
+                    </div>
+                    <h3 class="card-title py-2 m-0">Daily Offer</h3>
+                    <div class="card-text">
+                        <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 my-3">
+                <div class="card">
+                    <div>
+                        <iconify-icon class="service-icon text-primary" icon="la:award"></iconify-icon>
+                    </div>
+                    <h3 class="card-title py-2 m-0">Quality guarantee</h3>
+                    <div class="card-text">
+                        <p class="blog-paragraph fs-6">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="insta" class="my-5">
+    <div class="row g-0 py-5">
+        <div class="col instagram-item  text-center position-relative">
+            <div class="icon-overlay d-flex justify-content-center position-absolute">
+                <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+            </div>
+            <a href="https://www.instagram.com/">
+                <img src="~/assets/images/insta1.jpg" alt="insta-img" class="img-fluid rounded-3">
+            </a>
+        </div>
+        <div class="col instagram-item  text-center position-relative">
+            <div class="icon-overlay d-flex justify-content-center position-absolute">
+                <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+            </div>
+            <a href="https://www.instagram.com/">
+                <img src="~/assets/images/insta2.jpg" alt="insta-img" class="img-fluid rounded-3">
+            </a>
+        </div>
+        <div class="col instagram-item  text-center position-relative">
+            <div class="icon-overlay d-flex justify-content-center position-absolute">
+                <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+            </div>
+            <a href="https://www.instagram.com/">
+                <img src="~/assets/images/insta3.jpg" alt="insta-img" class="img-fluid rounded-3">
+            </a>
+        </div>
+        <div class="col instagram-item  text-center position-relative">
+            <div class="icon-overlay d-flex justify-content-center position-absolute">
+                <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+            </div>
+            <a href="https://www.instagram.com/">
+                <img src="~/assets/images/insta4.jpg" alt="insta-img" class="img-fluid rounded-3">
+            </a>
+        </div>
+        <div class="col instagram-item  text-center position-relative">
+            <div class="icon-overlay d-flex justify-content-center position-absolute">
+                <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+            </div>
+            <a href="https://www.instagram.com/">
+                <img src="~/assets/images/insta5.jpg" alt="insta-img" class="img-fluid rounded-3">
+            </a>
+        </div>
+        <div class="col instagram-item  text-center position-relative">
+            <div class="icon-overlay d-flex justify-content-center position-absolute">
+                <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+            </div>
+            <a href="https://www.instagram.com/">
+                <img src="~/assets/images/insta6.jpg" alt="insta-img" class="img-fluid rounded-3">
+            </a>
+        </div>
+    </div>
+</section>
+
+ 

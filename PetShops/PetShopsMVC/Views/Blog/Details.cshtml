@@ -1,24 +1,32 @@
-﻿@model PetShopsMVC.DTOs.BlogDTO
+﻿@model PetShopsMVC.Models.Blogs
 
 @{
     ViewData["Title"] = "Blog Details";
 }
 
-<h1>@Model.Title</h1>
+<div class="container py-5">
+    <div class="row pt-5">
+        <div class="col-lg-8">
+            <div class="d-flex flex-column text-left mb-4">
+                <h1 class="mb-3">@Model.Title</h1>
+                <div class="meta mb-2">
+                    <div><a href="#">@Model.CreatedAt.ToShortDateString()</a></div>
+                    <div><a href="#">@Model.Author</a></div>
+                    <div><img src="@Model.ImgUrl" alt=""></div>
+                </div>
+                <div class="mb-5">
+                    <img class="img-fluid w-100 mb-4" style="height: 400px;" src="@Model.ImgUrl" alt="website template image">
+                    <p>@Model.Content</p>
+                    <div class="media bg-light mb-5 p-4 p-md-5">
+                        <img src="images/reviewer-1.jpg" alt="website template image" class="img-fluid mr-4 mt-1" style="width: 80px;">
+                        <div class="media-body">
+                            <h5 class="mb-3">@Model.Author</h5>
+                            <p class="m-0">@Model.ContentDetail</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div>
-    <img src="@Model.ImgUrl" alt="@Model.Title" style="width:100%;height:auto;" />
+    </div>
 </div>
-<div>
-    <h3>@Model.Author</h3>
-    <p>@Model.CreatedAt.ToString("dd/MM/yyyy")</p>
-    <p>@Model.Content</p>
-    <p>@Model.ContentDetail</p>
-</div>
-
-
-<a class="btn btn-secondary" href="@Url.Action("Edit", "Blog", new { id = Model.BlogId })">Edit</a>
-<a class="btn btn-danger" href="@Url.Action("Delete", "Blog", new { id = Model.BlogId })">Delete</a>
-
-
-<a class="btn btn-primary" href="@Url.Action("Index", "Blog")">Back to Blog List</a>

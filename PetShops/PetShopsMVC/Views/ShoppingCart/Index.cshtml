@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Carts>
+
 @if (Model.Count() != 0)
 {
     <section>
@@ -22,7 +23,7 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="@item.Product.ProductImage" alt="Product" /></a></td>
+                                            <td class="pro-thumbnail"><a href="#"><img style="width:100px;height:100px" class="img-fluid" src="@item.Product.ProductImage" alt="Product" /></a></td>
                                             <td class="pro-title">@item.Product.ProductName</td>
                                             <td class="pro-price"><span>@item.Product.ProductPrice</span></td>
                                             <td class="pro-quantity">
@@ -57,7 +58,7 @@
                                     <table class="table">
                                         <tr>
                                             <td>Sub Total</td>
-                                            <td>@ViewBag.TotalCart.ToString("c")</td>
+                                            <td>@Model.Sum(item => item.Qty * item.Product.ProductPrice).ToString()</td>
                                         </tr>
                                         <tr>
                                             <td>Quantity total</td>
@@ -65,13 +66,13 @@
                                         </tr>
                                         <tr class="total">
                                             <td>Total</td>
-                                            <td class="total-amount">@ViewBag.TotalCart</td>
+                                            <td class="total-amount">@Model.Sum(item => item.Qty * item.Product.ProductPrice).ToString()</td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                             <div class="cart-proceed">
-                                <a asp-controller="Order" asp-action="Checkout" class="btn flosun-button primary-btn rounded-0 black-btn w-100">Proceed To Checkout</a>
+                                <a style="background-color:#DEAD6F" asp-controller="Order" asp-action="Checkout" class="btn flosun-button primary-btn rounded-0 black-btn w-100">Proceed To Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -82,7 +83,6 @@
 }
 else
 {
-
     <div style="margin-bottom: 100px;" class="container">
         <br><br><br><br>
         <div class="text-center">
@@ -95,14 +95,12 @@ else
                 Before proceed to checkout you must add some products to your shopping cart. You will find a lot of
                 interesting products on our "Shop" page.
             </p>
-            <a style="background-color:#E72463;color:#fff;border:none;" asp-controller="Product" asp-action="Index" class="btn btn-primary w-20">
+            <a style="background-color:#DEAD6F;color:#fff;border:none;" asp-controller="Product" asp-action="Shop" class="btn btn-primary w-20">
                 Start Shopping
             </a>
         </div>
     </div>
 }
-
-
 
 <script>
     // Function to increase quantity
@@ -133,7 +131,7 @@ else
 
         // Gửi yêu cầu AJAX bằng phương thức POST
         $.ajax({
-            url: '/ShoppingCart/UpdateCartItemQuantity', 
+            url: '/ShoppingCart/UpdateCartItemQuantity',
             contentType: 'application/json', // Định dạng dữ liệu gửi đi
             data: JSON.stringify(data), // Chuyển đổi dữ liệu thành chuỗi JSON
             success: function (response) {

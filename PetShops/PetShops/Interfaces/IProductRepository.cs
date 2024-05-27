@@ -10,5 +10,6 @@ namespace PetShops.Interfaces
         Task<bool> AddProduct(ProductDTO productDTO);
         Task<bool> UpdateProduct(int id, ProductDTO productDTO);
         Task<bool> DeleteProduct(int id);
+        Task<bool> AddEmailSubscription(EmailSubscribeDTO email);
     }
 }

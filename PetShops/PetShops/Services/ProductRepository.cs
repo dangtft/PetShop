@@ -24,6 +24,7 @@ namespace PetShops.Services
             return await _context.Products.ToListAsync();
         }
 
+
         public async Task<Product> GetProductById(int id)
         {
             return await _context.Products.FindAsync(id);
@@ -123,5 +124,32 @@ namespace PetShops.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> AddEmailSubscription(EmailSubscribeDTO emailDto)
+        {
+            try
+            {
+                var existingEmail = await _context.EmailSubscribe.FirstOrDefaultAsync(e => e.Email == emailDto.Email);
+                if (existingEmail != null)
+                {
+                    return true; 
+                }
+
+                var newEmail = new EmailSubscribe
+                {
+                    Email = emailDto.Email
+                };
+                _context.EmailSubscribe.Add(newEmail);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+
     }
 }

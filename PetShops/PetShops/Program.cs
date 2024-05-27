@@ -30,6 +30,7 @@ builder.Services.AddScoped<IBlogRepository,BlogRepository>();
 builder.Services.AddScoped<IOrderRepository,OrderRepository>();
 builder.Services.AddScoped<IShoppingCartRepository,ShoppingCartRepository>(ShoppingCartRepository.GetCart);
 builder.Services.AddScoped<ITokenRepository,TokenRepository>();
+builder.Services.AddScoped<IContactRepository,ContactRepository>();
 
 builder.Services.AddAuthentication(options =>
 {

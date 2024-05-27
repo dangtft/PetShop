@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using PetShopsMVC.Models.Interfaces;
+using PetShopsMVC.Models;
+using PetShopsMVC.ViewModel;
 
 namespace PetShopsMVC.Controllers
 {
@@ -32,15 +34,15 @@ namespace PetShopsMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            SetAuthorizationHeader();
-            List<BlogDTO> blogs = new List<BlogDTO>();
+            List<Blogs> blogs = new List<Blogs>();
             HttpResponseMessage response = await _httpClient.GetAsync($"Blog/GetAllBlog");
 
             if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();
-                blogs = JsonConvert.DeserializeObject<List<BlogDTO>>(data);
+                blogs = JsonConvert.DeserializeObject<List<Blogs>>(data);
             }
+          
             return View(blogs);
         }
 
@@ -53,7 +55,7 @@ namespace PetShopsMVC.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();
-                BlogDTO book = JsonConvert.DeserializeObject<BlogDTO>(data);
+                Blogs book = JsonConvert.DeserializeObject<Blogs>(data);
                 return View(book);
             }
             else

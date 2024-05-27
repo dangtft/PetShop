@@ -1,42 +1,30 @@
-﻿@model List<PetShopsMVC.DTOs.BlogDTO>
+﻿@model List<PetShopsMVC.Models.Blogs>
 
 @{
     ViewData["Title"] = "Blog";
 }
 
-<h1>Blog Index</h1>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Created At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var blog in Model)
-        {
-            <tr>
-                <td>
-                    <img src="@blog.ImgUrl" alt="@blog.Title" style="width:100px;height:auto;" />
-                </td>
-                <td>@blog.Title</td>
-                <td>@blog.Author</td>
-                <td>@blog.CreatedAt.ToString("dd/MM/yyyy")</td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("Details", "Blog", new { id = blog.BlogId })">View</a>
-                    <a class="btn btn-secondary" href="@Url.Action("Edit", "Blog", new { id = blog.BlogId })">Edit</a>
-                    <a class="btn btn-danger" href="@Url.Action("Delete", "Blog", new { id = blog.BlogId })">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@if (User.Identity.IsAuthenticated)
-{
-    <a class="btn btn-success" href="@Url.Action("Create", "Blog")">Create New Blog</a>
-}
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row d-flex">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 d-flex ftco-animate">
+                    <div class="blog-entry align-self-stretch">
+                        <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId" class="block-20 rounded">
+                            <img src="@item.ImgUrl" alt="@item.Title">
+                        </a>
+                        <div class="text p-4">
+                            <div class="meta mb-2">
+                                <div><a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId">@item.CreatedAt.ToShortDateString()</a></div>
+                                <div><a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId">@item.Author</a></div>
+                            </div>
+                            <h3 class="heading"><a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId">@item.Content</a></h3>
+                            <a asp-controller="Blog" asp-action="Details" asp-route-id="@item.BlogId" class="blog-read">read more</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -79,5 +79,21 @@ namespace PetShops.Controllers
 
             return StatusCode(StatusCodes.Status200OK, "Product deleted successfully");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EmailSubscribe(EmailSubscribeDTO emailDto)
+        {
+            var result = await _productRepository.AddEmailSubscription(emailDto);
+
+            if (result)
+            {
+                return StatusCode(StatusCodes.Status200OK, "Email subscription added successfully");
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add email subscription.");
+            }
+        }
+
     }
 }

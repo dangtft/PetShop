@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Data;
 
 namespace PetShopsMVC.Controllers
 {
@@ -61,6 +62,7 @@ namespace PetShopsMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginRequestDTO loginRequestDTO)
         {
+            CreateHttpClient();
             var client = _httpClientFactory.CreateClient();
             _logger.LogInformation("Gửi yêu cầu đăng nhập đến {url}", client.BaseAddress + "Account/Login");
             client.BaseAddress = new Uri(_configuration["ApiBaseUrl"]);
@@ -73,13 +75,17 @@ namespace PetShopsMVC.Controllers
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadJwtToken(loginResponse.JwtToken);
                 var username = token.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email)?.Value;
+                var roles = token.Claims.Where(claim => claim.Type == ClaimTypes.Role).Select(claim => claim.Value).ToList();
 
                 if (!string.IsNullOrEmpty(username))
                 {
                     HttpContext.Session.SetString("Username", username);
                 }
-
-                return RedirectToAction("Index", "Home");
+                if (roles.Contains("Admin"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                return RedirectToAction("Index", "Product");
 
             }
             _logger.LogError("Đăng nhập thất bại với mã trạng thái {statusCode}", response.StatusCode);
@@ -91,7 +97,7 @@ namespace PetShopsMVC.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Product");
         }
     }
 }

@@ -10,5 +10,6 @@ namespace PetShops.Interfaces
         void ClearCart();
         decimal GetShoppingCartTotal();
         public List<Cart> ShoppingCartItems { get; set; }
+        
     }
 }

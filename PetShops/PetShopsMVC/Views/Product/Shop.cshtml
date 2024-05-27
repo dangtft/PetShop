@@ -1,0 +1,285 @@
+﻿@model IEnumerable<PetShopsMVC.Models.Products>
+<section id="categories">
+    <div class="container my-3 py-5">
+        <div class="row my-5">
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bowl-food"></iconify-icon>
+                    <h5>Foodies</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
+                    <h5>Bird Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
+                    <h5>Dog Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
+                    <h5>Fish Shop</h5>
+                </a>
+            </div>
+            <div class="col text-center">
+                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                    <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
+                    <h5>Cat Shop</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="clothing" class="my-5 overflow-hidden">
+    <div class="container pb-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+            <h2 class="display-3 fw-normal">Pet Clothing</h2>
+           
+        </div>
+
+        <div class="products-carousel swiper">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model)
+                {
+                    @if (item.CategoryId == 2)//Clothing
+                    {
+                        <div class="swiper-slide">
+                            <div class="z-1 position-absolute rounded-3 m-3 px-3 border border-dark-subtle">
+                                New
+                            </div>
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src=" @Html.DisplayFor(modelItem => item.ProductImage)" class="img-fluid rounded-4" alt="image"></a>
+                                <div class="card-body p-0">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
+                                        <h3 class="card-title pt-4 m-0"> @Html.DisplayFor(modelItem => item.ProductName)</h3>
+                                    </a>
+
+                                    <div class="card-text">
+                                        <span class="rating secondary-font">
+                                            @for (var i = 0; i < item.Rating; i++)
+                                            {
+                                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                            }
+                                            @item.Rating
+                                        </span>
+
+                                        <h3 class="secondary-font text-primary"> @Html.DisplayFor(modelItem => item.ProductPrice)</h3>
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                                <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                            </a>
+                                          
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="foodies" class="my-5">
+    <div class="container my-5 py-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center">
+            <h2 class="display-3 fw-normal">Pet Foodies</h2>
+            <div class="mb-4 mb-md-0">
+                <p class="m-0">
+                    <button class="filter-button me-4  active" data-filter="*">ALL</button>
+                    <button class="filter-button me-4 " data-filter=".cat">CAT</button>
+                    <button class="filter-button me-4 " data-filter=".dog">DOG</button>
+                    <button class="filter-button me-4 " data-filter=".bird">BIRD</button>
+                </p>
+            </div>
+         
+        </div>
+
+        <div class="isotope-container row">
+            @foreach (var item in Model)
+            {
+                if(item.PetTypeId == 1)
+                {
+                    <div class="item dog col-md-4 col-lg-3 my-4">
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                    <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <span class="rating secondary-font">
+                                        @for (var i = 0; i < item.Rating; i++)
+                                        {
+                                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                        }
+                                        @item.Rating
+                                    </span>
+
+                                    <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                if (item.PetTypeId == 2)
+                {
+                    <div class="item cat col-md-4 col-lg-3 my-4">
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                    <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <span class="rating secondary-font">
+                                        @for (var i = 0; i < item.Rating; i++)
+                                        {
+                                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                        }
+                                        @item.Rating
+                                    </span>
+
+                                    <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                if (item.PetTypeId == 3)
+                {
+                    <div class="item bird col-md-4 col-lg-3 my-4">
+                        <div class="card position-relative">
+                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <div class="card-body p-0">
+                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                    <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                </a>
+
+                                <div class="card-text">
+                                    <span class="rating secondary-font">
+                                        @for (var i = 0; i < item.Rating; i++)
+                                        {
+                                            <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                        }
+                                        @item.Rating
+                                    </span>
+
+                                    <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                    <div class="d-flex flex-wrap mt-3">
+                                        <a asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                            <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+               
+            }
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<section id="bestselling" class="my-5 overflow-hidden">
+    <div class="container py-5 mb-5">
+
+        <div class="section-header d-md-flex justify-content-between align-items-center mb-3">
+            <h2 class="display-3 fw-normal">Best selling products</h2>
+          
+        </div>
+
+        <div class=" swiper bestselling-swiper">
+            <div class="swiper-wrapper">
+                @foreach (var item in Model)
+                {
+                    if (item.IsSaling == true)
+                    {
+                        <div class="swiper-slide">
+                            <div class="card position-relative">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                                <div class="card-body p-0">
+                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
+                                        <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
+                                    </a>
+
+                                    <div class="card-text">
+                                        <span class="rating secondary-font">
+                                            @for (var i = 0; i < item.Rating; i++)
+                                            {
+                                                <iconify-icon icon="clarity:star-solid" class="text-primary"></iconify-icon>
+                                            }
+                                            @item.Rating
+                                        </span>
+
+                                        <h3 class="secondary-font text-primary">@item.ProductPrice</h3>
+
+                                        <div class="d-flex flex-wrap mt-3">
+                                            <a asp-controller="Product" asp-action="AddToShoppingCart" asp-route-pId="@item.ProductId" class="btn-cart me-3 px-4 pt-3 pb-3">
+                                                <h5 class="text-uppercase m-0">Add to Cart</h5>
+                                            </a>
+                                         
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- / category-carousel -->
+
+
+    </div>
+</section>

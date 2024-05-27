@@ -1,0 +1,248 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.inner-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Product Details Section */
+.product-details-with-image {
+    display: flex;
+    justify-content: center;
+    gap: 0px;
+    padding: 20px;
+}
+
+.product-details-with-image-inner {
+    display: flex;
+    gap: 0px;
+}
+
+.product-left-section {
+    flex: 1;
+}
+
+.product-left-section img {
+    width: 400px;
+    height: auto;
+    display: block;
+    padding-right: -30px;
+}
+.product-images-slider-nav.slider-nav {
+    margin-top: 20px;
+}
+.product-slider-image.slider-item-1 img {
+    width: 50px;
+    height: 50px;
+    gap: 10px;
+}
+.product-slider-image {
+    display: flex;
+    gap: 20px;
+}
+
+.product-right-content {
+    flex: 1;
+    max-width: 500px;  
+    padding: 0px;
+    background-color: #fff;
+}
+
+/* Product Name and Price */
+.product-name h4,
+.product-price-range h4 {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.product-price-range h4 {
+    color: #E4CBA9;
+}
+
+/* Product Excerpt */
+.product-excerpt p {
+    font-size: 1em;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Stock Information */
+.product-stock-left p {
+    font-size: 0.9em;
+    color: #E4CBA9;
+}
+
+.product-stock-left span {
+    font-weight: bold;
+}
+
+/* Add to Cart Section */
+.buy-product {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.cart-button-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border:solid 3px #e3e0e0;
+    border-radius: 30px;
+    
+}
+
+.cart-button-container .secondary-button {
+    background-color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 40px;
+    font-weight: 200;
+   
+}
+
+.cart-button-container .input-text.qty {
+    width: 40px;
+    text-align: center;
+    border: none !important;
+
+    
+}
+.product-cart-button.secondary-button {
+    width: 200px;
+    text-align: center;
+    background-color: #E4CBA9;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 30px;
+    margin-bottom: 10px;
+
+}
+.product-cart-button.secondary-button a {
+    color: black !important;
+}
+
+
+
+/* Add to Cart and Buy Now Buttons */
+
+.buy-it-now-button.secondary-button {
+    display: block;
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    text-decoration: none;
+    border: solid 1px black !important;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+.buy-it-now-button a,
+.product-cart-button a {
+    color: black !important;
+    text-decoration: none;
+}
+
+/* Wishlist Icon */
+.add-wishlist-icon a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    width: 30px;
+    font-size: 0.9em;
+    margin-right: 30px;
+    margin-top: -10px;
+
+}
+
+.add-wishlist-icon svg {
+    width: 40px;
+    height: 40px;
+    
+}
+
+
+
+/* Product Details */
+.product-details {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.product-details p {
+    margin: 5px 0;
+}
+
+.product-details samp {
+    font-weight: bold;
+}
+
+/* Tabs Section */
+.product-description-reviews {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#product-tabs-nav {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+#product-tabs-nav li {
+    margin: 0 10px;
+}
+
+#product-tabs-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+    padding: 10px;
+    display: block;
+}
+
+#product-tabs-nav a:hover,
+#product-tabs-nav a:focus {
+    border-bottom: 2px solid #E4CBA9;
+    color: #E4CBA9;
+}
+
+#product-tabs-cont {
+    text-align: center;
+}
+
+.product-tab-content {
+    display: none;
+}
+
+.product-tab-content#description {
+    display: block;
+}
+#clothing a{
+    text-decoration: none !important;
+}
+

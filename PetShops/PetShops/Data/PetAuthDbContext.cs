@@ -10,6 +10,7 @@ namespace PetShops.Data
         {
             var readerRoleId = "004c7e80 - 7dfc- 44be- 8952- 2c7130898655";
             var writeRoleId = "71e282d3- 76ca- 485e - b094- eff019287fa5";
+            var adminRoleId = "71e282d3- 76ca- 485e - b094- eff013337fa5";
             base.OnModelCreating(builder);
             var roles = new List<IdentityRole>{
                 new IdentityRole
@@ -21,7 +22,12 @@ namespace PetShops.Data
                     Id = writeRoleId,
                     ConcurrencyStamp = writeRoleId,
                     Name ="Write",
-                    NormalizedName="Write".ToUpper()}
+                    NormalizedName="Write".ToUpper()},
+                 new IdentityRole {
+                    Id = adminRoleId,
+                    ConcurrencyStamp = adminRoleId,
+                    Name ="Admin",
+                    NormalizedName="Admin".ToUpper()}
             };
             builder.Entity<IdentityRole>().HasData(roles);
         }
