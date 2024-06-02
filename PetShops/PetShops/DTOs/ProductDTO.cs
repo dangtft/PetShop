@@ -9,5 +9,7 @@
         public bool? IsSaling { get; set; }
         public int? CategoryId { get; set; }
         public int? PetTypeId { get; set; }
+        public int? Rating { get; set; }
+        public int? Quantity { get; set; }
     }
 }

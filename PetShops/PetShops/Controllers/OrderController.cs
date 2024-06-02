@@ -7,7 +7,7 @@ namespace PetShops.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [Authorize]
+
     public class OrderController : ControllerBase
     {
         private readonly IOrderRepository _orderRepository;

@@ -50,13 +50,13 @@ namespace PetShopsMVC.Controllers
         public async Task<IActionResult> Details(int id)
         {
             SetAuthorizationHeader();
-            HttpResponseMessage response = await _httpClient.GetAsync($"Blog/GetBlog/{id}");
+            HttpResponseMessage response = await _httpClient.GetAsync($"Blog/GetBlogWithComments/{id}");
 
             if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();
-                Blogs book = JsonConvert.DeserializeObject<Blogs>(data);
-                return View(book);
+                Blogs blogWithComments = JsonConvert.DeserializeObject<Blogs>(data);
+                return View(blogWithComments);
             }
             else
             {
@@ -146,6 +146,24 @@ namespace PetShopsMVC.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddComment(int blogId, Comments comment)
+        {
+            SetAuthorizationHeader();
+
+            var content = new StringContent(JsonConvert.SerializeObject(comment), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _httpClient.PostAsync($"Blog/AddComment/{blogId}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", new { id = blogId });
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Không thể thêm bình luận. Vui lòng thử lại sau.");
+                return View(comment);
+            }
+        }
 
     }
 }

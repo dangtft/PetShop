@@ -17,4 +17,10 @@ namespace PetShopsMVC.ViewModel
         public IEnumerable<Blogs> Blogs { get; set; }
         public Blogs Blog { set; get; }
     }
+    public class ContactSubscriberViewModel
+    {
+        public List<Contacts> Contacts { get; set; }
+        public List<EmailSubscribe> Subscribers { get; set; }
+    }
+
 }

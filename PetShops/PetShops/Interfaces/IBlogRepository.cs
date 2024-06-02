@@ -10,5 +10,8 @@ namespace PetShops.Interfaces
         Task<bool> AddBlog(BlogDTO blogDTO);
         Task<bool> UpdateBlog(int id, BlogDTO blogDTO);
         Task<bool> DeleteBlog(int id);
+        Task<BlogPost> GetBlogWithComments(int id);
+        Task<bool> AddComment(int blogId, CommentDTO commentDTO);
+        IEnumerable<Comment> GetCommentsForBlog(int blogId);
     }
 }

@@ -50,7 +50,9 @@ namespace PetShops.Services
                     ProductImage = productDTO.ProductImage,
                     IsSaling = productDTO.IsSaling,
                     Category = category,
-                    PetType = petType
+                    PetType = petType,
+                    Rating = productDTO.Rating,
+                    Quantity = productDTO.Quantity,
                 };
 
                 _context.Products.Add(product);
@@ -80,6 +82,8 @@ namespace PetShops.Services
                 product.ProductPrice = productDTO.ProductPrice;
                 product.ProductImage = productDTO.ProductImage;
                 product.IsSaling = productDTO.IsSaling;
+                product.Quantity = productDTO.Quantity;
+                product.Rating = productDTO.Rating;
 
                 if (productDTO.CategoryId != null)
                 {

@@ -80,5 +80,29 @@ namespace PetShops.Controllers
 
             return StatusCode(StatusCodes.Status200OK, "blog deleted successfully");
         }
+
+        [HttpPost("{blogId}")]
+        public async Task<IActionResult> AddComment(int blogId, [FromBody] CommentDTO commentDTO)
+        {
+            var result = await _blogRepository.AddComment(blogId, commentDTO);
+
+            if (!result)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Failed to add comment.");
+            }
+
+            return Ok("Comment added successfully");
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBlogWithComments(int id)
+        {
+            var blog = await _blogRepository.GetBlogWithComments(id);
+            if (blog == null)
+            {
+                return NoContent();
+            }
+            return Ok(blog);
+        }
     }
 }

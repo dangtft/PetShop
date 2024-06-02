@@ -90,5 +90,47 @@ namespace PetShops.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public IEnumerable<Comment> GetCommentsForBlog(int blogId)
+        {
+            return _context.Comments.Where(c => c.BlogId == blogId).ToList();
+        }
+
+        public async Task<bool> AddComment(int blogId, CommentDTO commentDTO)
+        {
+            try
+            {
+                var blog = await _context.Blogs.FindAsync(blogId);
+                if (blog == null)
+                {
+                    return false;
+                }
+
+                var comment = new Comment
+                {
+                    BlogId = blogId,
+                    UserName = commentDTO.UserName,
+                    Text = commentDTO.Text,
+                    Email = commentDTO.Email,
+                    CreatedAt = DateTime.UtcNow,
+                };
+
+                _context.Comments.Add(comment);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<BlogPost> GetBlogWithComments(int id)
+        {
+            return await _context.Blogs
+                .Include(b => b.Comments)
+                .FirstOrDefaultAsync(b => b.BlogId == id);
+        }
     }
 }

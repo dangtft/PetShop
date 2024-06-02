@@ -14,8 +14,14 @@ namespace PetShops.Data
         public DbSet<BlogPost> Blogs { get; set; }
         public DbSet<PetType> PetTypes { get; set; }
         public DbSet<EmailSubscribe> EmailSubscribe { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BlogPost>()
+            .HasMany(b => b.Comments)
+            .WithOne(c => c.Blog)
+            .HasForeignKey(c => c.BlogId);
+
             modelBuilder.Entity<Product>()
               .HasOne(p => p.Category)
               .WithMany(c => c.Products)

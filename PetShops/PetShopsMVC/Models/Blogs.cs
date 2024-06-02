@@ -13,5 +13,6 @@ namespace PetShopsMVC.Models
         public string? Author { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsHot { get; set; }
+        public List<Comments> Comments { get; set; }
     }
 }

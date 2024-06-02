@@ -14,6 +14,6 @@ namespace PetShops.Models
         public DateTime CreatedAt { get; set; }
         public bool IsHot { get; set; }
         
-
+        public List<Comment> Comments { get; set; }
     }
 }
