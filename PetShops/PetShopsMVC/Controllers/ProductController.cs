@@ -53,19 +53,27 @@ namespace PetShopsMVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Shop()
+        public async Task<IActionResult> Shop(string searchTerm)
         {
             List<Products> products = new List<Products>();
-            HttpResponseMessage response = await _httpClient.GetAsync($"Product/GetAllProduct");
-           
+            HttpResponseMessage response;
 
-            if (response.IsSuccessStatusCode )
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                response = await _httpClient.GetAsync($"Product/GetAllProduct");
+            }
+            else
+            {
+                response = await _httpClient.GetAsync($"Product/SearchProductsByName?productName={searchTerm}");
+            }
+
+            if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();
-              
                 products = JsonConvert.DeserializeObject<List<Products>>(data);
             }
 
+            ViewBag.SearchTerm = searchTerm;
             return View(products);
         }
 

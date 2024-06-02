@@ -153,7 +153,10 @@ namespace PetShops.Services
             }
         }
 
-
+        public IEnumerable<Product> SearchProductsByName(string productName)
+        {
+            return _context.Products.Where(p => EF.Functions.Like(p.ProductName, $"%{productName}%")).ToList();
+        }
 
     }
 }

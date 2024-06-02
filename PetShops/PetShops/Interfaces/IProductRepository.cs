@@ -11,5 +11,6 @@ namespace PetShops.Interfaces
         Task<bool> UpdateProduct(int id, ProductDTO productDTO);
         Task<bool> DeleteProduct(int id);
         Task<bool> AddEmailSubscription(EmailSubscribeDTO email);
+        IEnumerable<Product> SearchProductsByName(string productName);
     }
 }

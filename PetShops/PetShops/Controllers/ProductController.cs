@@ -95,5 +95,18 @@ namespace PetShops.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult SearchProductsByName(string productName)
+        {
+            var products = _productRepository.SearchProductsByName(productName);
+
+            if (products == null || !products.Any())
+            {
+                return StatusCode(StatusCodes.Status204NoContent, $"No products found with name: {productName}");
+            }
+
+            return StatusCode(StatusCodes.Status200OK, products);
+        }
+
     }
 }
