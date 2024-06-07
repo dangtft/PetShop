@@ -78,12 +78,19 @@ namespace PetShopsMVC.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> CompletedOrders()
         {
             try
             {
-                var userId = User.Identity.Name;
-                var response = await _httpClient.GetAsync($"GetCompletedOrders/{userId}");
+                SetAuthorizationHeader();
+                string userId = HttpContext.Session.GetString("Username");
+                if (string.IsNullOrEmpty(userId))
+                {
+                    ViewBag.ErrorMessage = "Người dùng chưa đăng nhập.";
+                    return View("Error");
+                }
+                var response = await _httpClient.GetAsync($"Order/GetCompletedOrders/{userId}");
                 response.EnsureSuccessStatusCode();
                 var completedOrders = await response.Content.ReadAsAsync<IEnumerable<Orders>>();
                 return View(completedOrders);

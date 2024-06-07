@@ -93,12 +93,17 @@ builder.Services.AddSwaggerGen(options =>
             new List<string>()
         }
     });
+    options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
 });
 
 builder.Services.AddDbContext<PetShopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PetShopDbConnection")));
 builder.Services.AddDbContext<PetAuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PetAuthDbConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+              .AddEntityFrameworkStores<PetAuthDbContext>()
+              .AddDefaultTokenProviders();
 var app = builder.Build();
 app.UseSession();
 // Configure the HTTP request pipeline.

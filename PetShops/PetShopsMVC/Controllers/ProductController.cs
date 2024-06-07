@@ -70,10 +70,17 @@ namespace PetShopsMVC.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string data = await response.Content.ReadAsStringAsync();
-                products = JsonConvert.DeserializeObject<List<Products>>(data);
+                if (!string.IsNullOrEmpty(data))
+                {
+                    products = JsonConvert.DeserializeObject<List<Products>>(data);
+                }
             }
 
             ViewBag.SearchTerm = searchTerm;
+            if (products == null || !products.Any())
+            {
+                return RedirectToAction("Shop"); 
+            }
             return View(products);
         }
 

@@ -6,6 +6,10 @@ using PetShopsMVC.DTOs;
 using PetShopsMVC.ViewModel;
 using PetShopsMVC.Models.Interfaces;
 using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Text;
 
 namespace PetShopsMVC.Controllers
 {
@@ -16,6 +20,7 @@ namespace PetShopsMVC.Controllers
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7182/api/");
+       
         }
         private void SetAuthorizationHeader()
         {
@@ -25,14 +30,7 @@ namespace PetShopsMVC.Controllers
                 _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             }
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        #region Contact
-        [HttpGet]
-        public async Task<IActionResult> Contact()
+        public async Task<IActionResult> Index()
         {
             List<Contacts> contacts = new List<Contacts>();
             List<EmailSubscribe> subscribers = new List<EmailSubscribe>();
@@ -57,7 +55,6 @@ namespace PetShopsMVC.Controllers
             return View(viewModel);
         }
 
-        #endregion Contact
 
         #region Blog
 
@@ -156,26 +153,7 @@ namespace PetShopsMVC.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetOrderById(int orderId)
-        {
-            Orders order = null;
-
-            HttpResponseMessage response = await _httpClient.GetAsync($"Order/GetOrderById/{orderId}");
-            if (response.IsSuccessStatusCode)
-            {
-                order = await response.Content.ReadFromJsonAsync<Orders>();
-                return View(order);
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode, $"Error fetching order: {response.ReasonPhrase}");
-            }
-        }
+       
 
        
 
@@ -310,5 +288,102 @@ namespace PetShopsMVC.Controllers
         }
 
         #endregion
+
+        #region Users
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync("Admin/AllUsersAndRoles"); 
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<UserWithRolesVM>>(data);
+                return View(users);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Error retrieving users");
+                return View(new List<UserWithRolesVM>());
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserById(string userId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"Admin/UserDetails/{userId}"); 
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                var user = JsonConvert.DeserializeObject<UserWithRolesVM>(data);
+                return View(user);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Error retrieving user");
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUserRoles(string userId)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"Admin/EditUserRoles/{userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<UserWithRolesVM>(data);
+                return View(model);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Error retrieving user roles");
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUserRoles(UserWithRolesVM model)
+        {
+            var json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync("Admin/EditUserRoles", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(GetAllUsers)); 
+            }
+            else
+            {
+                string errorData = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, $"Error updating user roles: {errorData}");
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"Admin/DeleteUser/{userId}"); 
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction(nameof(GetAllUsers));
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Error deleting user");
+                return RedirectToAction(nameof(GetAllUsers));
+            }
+        }
+
+
+        #endregion Users
     }
 }
