@@ -13,14 +13,19 @@
                 </h2>
                 <form asp-action ="Register" method="post">
                     <div class="mb-3">
-                        <input asp-for="Username" type="email" class="form-control form-control-lg" name="email" id="email"
+                        <input asp-for="Username" class="form-control form-control-lg" 
                                placeholder="Enter Your Email Address">
                         <span asp-validation-for="Username" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <input asp-for="Password" type="password" class="form-control form-control-lg" name="email" id="password1"
+                        <input asp-for="Password" type="password" class="form-control form-control-lg"  id="password1"
                                placeholder="Create Password">
                         <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <input asp-for="Roles" type="hidden" class="form-control form-control-lg" value="Read" name="roles" id="password1"
+                               placeholder="">
+                        <span asp-validation-for="Roles" class="text-danger"></span>
                     </div>
                 
                     <div class="d-grid gap-2">

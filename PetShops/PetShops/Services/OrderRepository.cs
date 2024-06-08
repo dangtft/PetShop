@@ -57,13 +57,25 @@ namespace PetShops.Services
 
         public void DeleteOrder(int orderId)
         {
-            var orderToDelete = dbContext.Orders.Find(orderId);
+            var orderToDelete = dbContext.Orders
+                 .Include(o => o.OrderDetails)
+                 .FirstOrDefault(o => o.Id == orderId);
 
             if (orderToDelete != null)
             {
+                foreach (var orderDetail in orderToDelete.OrderDetails)
+                {
+                    dbContext.OrderDetails.Remove(orderDetail);
+                }
+
                 dbContext.Orders.Remove(orderToDelete);
                 dbContext.SaveChanges();
             }
+        }
+
+        public IEnumerable<OrderDetail> GetAllOrderDetail()
+        {
+            return dbContext.OrderDetails.ToList();
         }
     }
 }

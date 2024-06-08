@@ -120,7 +120,7 @@ namespace PetShops.Controllers
             return Ok(new { message = "User deleted successfully" });
         }
 
-        [HttpGet("UserDetails/{userId}")]
+        [HttpGet("{userId}")]
         public async Task<IActionResult> UserDetails(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

@@ -91,5 +91,18 @@ namespace PetShops.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet]
+        public IActionResult GetAllOrderDetail()
+        {
+            try
+            {
+                var orderdetail = _orderRepository.GetAllOrderDetail();
+                return Ok(orderdetail);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

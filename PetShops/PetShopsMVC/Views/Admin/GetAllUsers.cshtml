@@ -56,9 +56,9 @@
                                         </td>
                                         
                                         <td>
-                                            @Html.ActionLink("Edit", "EditUserRoles", new { id = item.UserId }) |
-                                            @Html.ActionLink("Details", "GetUserById", new { id = item.UserId }) |
-                                            @Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId })
+                                            <button style="background-color:dodgerblue;border:none;color:white;border-radius:10%">@Html.ActionLink("Edit", "EditUserRoles", new { id = item.UserId }, new { @style = "color: white;" })</button>  |
+                                            <button style="background-color:dodgerblue;border:none;color:white;border-radius:10%">@Html.ActionLink("Details", "GetUserById", new { id = item.UserId }, new { @style = "color: white;" })</button>  |
+                                            <button style="background-color:dodgerblue;border:none;color:white;border-radius:10%">@Html.ActionLink("Delete", "DeleteUser", new { id = item.UserId }, new { @style = "color: white;" })</button>
                                         </td>
                                     </tr>
 

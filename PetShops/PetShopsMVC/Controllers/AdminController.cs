@@ -16,11 +16,12 @@ namespace PetShopsMVC.Controllers
     public class AdminController : Controller
     {
         private readonly HttpClient _httpClient;
-        public AdminController(IHttpClientFactory httpClientFactory)
+        private readonly UserManager<IdentityUser> _userManager;
+        public AdminController(IHttpClientFactory httpClientFactory, UserManager<IdentityUser> userManager)
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7182/api/");
-       
+            _userManager = userManager;
         }
         private void SetAuthorizationHeader()
         {
@@ -32,6 +33,11 @@ namespace PetShopsMVC.Controllers
         }
         public async Task<IActionResult> Index()
         {
+
+            var totalRevenue = await CalculateTotalRevenue();
+            var totalUsers = await GetTotalUsers();
+            var totalProductSales = await GetTotalQuantityInOrderDetails();
+
             List<Contacts> contacts = new List<Contacts>();
             List<EmailSubscribe> subscribers = new List<EmailSubscribe>();
             HttpResponseMessage response = await _httpClient.GetAsync("Contact/GetAllSubscribers");
@@ -48,8 +54,11 @@ namespace PetShopsMVC.Controllers
 
             var viewModel = new ContactSubscriberViewModel
             {
+                TotalRevenue = totalRevenue,
+                TotalUsers = totalUsers,
                 Contacts = contacts,
-                Subscribers = subscribers
+                Subscribers = subscribers,
+                TotalQuantityInOrderDetails = totalProductSales,
             };
 
             return View(viewModel);
@@ -310,6 +319,7 @@ namespace PetShopsMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserById(string userId)
         {
+            SetAuthorizationHeader();
             HttpResponseMessage response = await _httpClient.GetAsync($"Admin/UserDetails/{userId}"); 
             if (response.IsSuccessStatusCode)
             {
@@ -371,7 +381,8 @@ namespace PetShopsMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"Admin/DeleteUser/{userId}"); 
+            SetAuthorizationHeader(); 
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"Admin/DeleteUser/{userId}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(GetAllUsers));
@@ -381,9 +392,64 @@ namespace PetShopsMVC.Controllers
                 ModelState.AddModelError(string.Empty, "Error deleting user");
                 return RedirectToAction(nameof(GetAllUsers));
             }
+
         }
 
 
         #endregion Users
+
+        #region
+        public async Task<decimal> CalculateTotalRevenue()
+        {
+            decimal totalRevenue = 0;
+
+            HttpResponseMessage response = await _httpClient.GetAsync("Order/GetAllOrders");
+            if (response.IsSuccessStatusCode)
+            {
+                var orders = await response.Content.ReadFromJsonAsync<List<Orders>>();
+                foreach (var order in orders)
+                {
+                    totalRevenue += order.OrderTotal;
+                }
+            }
+
+            return totalRevenue;
+        }
+
+        public async Task<int> GetTotalUsers()
+        {
+            int totalUsers = 0;
+
+            HttpResponseMessage response = await _httpClient.GetAsync("Admin/AllUsersAndRoles");
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                var users = JsonConvert.DeserializeObject<List<UserWithRolesVM>>(data);
+                totalUsers = users.Count;
+            }
+
+            return totalUsers;
+        }
+
+        public async Task<int> GetTotalQuantityInOrderDetails()
+        {
+            int totalQuantity = 0;
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"Order/GetAllOrderDetail");
+            if (response.IsSuccessStatusCode)
+            {
+                var orderDetails = await response.Content.ReadFromJsonAsync<List<OrderDetails>>();
+                foreach (var orderDetail in orderDetails)
+                {
+                    totalQuantity += orderDetail.Quantity;
+                }
+            }
+
+            return totalQuantity;
+        }
+      
+
+
+        #endregion
     }
 }

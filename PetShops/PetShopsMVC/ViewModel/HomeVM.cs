@@ -19,8 +19,11 @@ namespace PetShopsMVC.ViewModel
     }
     public class ContactSubscriberViewModel
     {
+        public decimal TotalRevenue { get; set; }
+        public int TotalUsers { get; set; }
         public List<Contacts> Contacts { get; set; }
         public List<EmailSubscribe> Subscribers { get; set; }
+        public int TotalQuantityInOrderDetails { get; set; }
     }
 
 }

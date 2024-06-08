@@ -5,6 +5,7 @@ using PetShopsMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using PetShopsMVC.Models.Interfaces;
 using PetShopsMVC.Models.Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,12 +41,27 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 builder.Services.AddDbContext<PetShopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PetShopDbConnection")));
+builder.Services.AddDbContext<PetAuthDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PetAuthDbConnection")));
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+              .AddEntityFrameworkStores<PetAuthDbContext>()
+              .AddDefaultTokenProviders();
 
 var app = builder.Build();
+
+
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseSession();
+app.UseRouting();
+
+app.UseAuthorization();
+app.UseAuthentication();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -53,15 +69,6 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-app.UseAuthentication();
-
 
 app.MapControllerRoute(
     name: "default",
