@@ -3,31 +3,31 @@
     <div class="container my-3 py-5">
         <div class="row my-5">
             <div class="col text-center">
-                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                <a asp-controller="Product" asp-action="Shop" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:bowl-food"></iconify-icon>
                     <h5>Foodies</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                <a asp-controller="Product" asp-action="Shop" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:bird"></iconify-icon>
                     <h5>Bird Shop</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                <a asp-controller="Product" asp-action="Shop" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:dog"></iconify-icon>
                     <h5>Dog Shop</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                <a asp-controller="Product" asp-action="Shop" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:fish"></iconify-icon>
                     <h5>Fish Shop</h5>
                 </a>
             </div>
             <div class="col text-center">
-                <a asp-controller="Product" asp-action="Index" class="categories-item">
+                <a asp-controller="Product" asp-action="Shop" class="categories-item">
                     <iconify-icon class="category-icon" icon="ph:cat"></iconify-icon>
                     <h5>Cat Shop</h5>
                 </a>
@@ -120,9 +120,9 @@
                 {
                     <div class="item dog col-md-4 col-lg-3 my-4">
                         <div class="card position-relative">
-                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
                             <div class="card-body p-0">
-                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
                                     <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
                                 </a>
 
@@ -156,9 +156,9 @@
                 {
                     <div class="item cat col-md-4 col-lg-3 my-4">
                         <div class="card position-relative">
-                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
                             <div class="card-body p-0">
-                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
                                     <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
                                 </a>
 
@@ -191,9 +191,9 @@
                 {
                     <div class="item bird col-md-4 col-lg-3 my-4">
                         <div class="card position-relative">
-                            <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
+                            <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId"><img src="@item.ProductImage" class="img-fluid rounded-4" alt="image"></a>
                             <div class="card-body p-0">
-                                <a asp-controller="Product" asp-action="Index" asp-route-id="@item.ProductId">
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.ProductId">
                                     <h3 class="card-title pt-4 m-0">@item.ProductName</h3>
                                 </a>
 

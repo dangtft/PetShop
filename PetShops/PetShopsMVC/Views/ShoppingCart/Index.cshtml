@@ -25,7 +25,7 @@
                                         <tr>
                                             <td class="pro-thumbnail"><a href="#"><img style="width:100px;height:100px" class="img-fluid" src="@item.Product.ProductImage" alt="Product" /></a></td>
                                             <td class="pro-title">@item.Product.ProductName</td>
-                                            <td class="pro-price"><span>@item.Product.ProductPrice</span></td>
+                                            <td class="pro-price"><span>@item.Product.ProductPrice $</span></td>
                                             <td class="pro-quantity">
                                                 <div class="quantity">
                                                     <div class="cart-plus-minus">
@@ -39,7 +39,7 @@
                                                 </div>
                                             </td>
                                             <!-- Cột tổng tiền -->
-                                            <td class="pro-subtotal"><span>@(item.Qty * item.Product.ProductPrice)</span></td>
+                                            <td class="pro-subtotal"><span>@(item.Qty * item.Product.ProductPrice) $</span></td>
                                             <!-- Cột xóa sản phẩm khỏi giỏ hàng -->
                                             <td class="pro-remove"><a asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-pId="@item.Product.ProductId"><i class="lnr lnr-trash"></i></a></td>
                                         </tr>
@@ -58,7 +58,7 @@
                                     <table class="table">
                                         <tr>
                                             <td>Sub Total</td>
-                                            <td>@Model.Sum(item => item.Qty * item.Product.ProductPrice).ToString()</td>
+                                            <td>@Model.Sum(item => item.Qty * item.Product.ProductPrice).ToString() $</td>
                                         </tr>
                                         <tr>
                                             <td>Quantity total</td>
@@ -66,7 +66,7 @@
                                         </tr>
                                         <tr class="total">
                                             <td>Total</td>
-                                            <td class="total-amount">@Model.Sum(item => item.Qty * item.Product.ProductPrice).ToString()</td>
+                                            <td class="total-amount">@Model.Sum(item => item.Qty * item.Product.ProductPrice).ToString() $</td>
                                         </tr>
                                     </table>
                                 </div>

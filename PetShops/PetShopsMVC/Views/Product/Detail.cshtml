@@ -17,13 +17,14 @@
                         <h4>@Model.ProductName</h4>
                     </div>
                     <div class="product-price-range">
-                        <h4>@Model.ProductPrice</h4>
+                        <h4>@Model.ProductPrice $</h4>
+                    </div>
+                   
+                    <div class="product-stock-left">
+                        <p>Only <span>@Model.Quantity item(s)</span> left in stock!</p>
                     </div>
                     <div class="product-excerpt">
                         <p><span>@Model.ProductDescription</span></p>
-                    </div>
-                    <div class="product-stock-left">
-                        <p>Only <span>30 item(s)</span> left in stock!</p>
                     </div>
                     <div class="product-stock-left">
                         <span class="rating secondary-font">
